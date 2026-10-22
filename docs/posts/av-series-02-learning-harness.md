@@ -14,7 +14,7 @@ tags:
 
 **本文不覆盖：** 音频采集 / 编码等真实管线阶段（后续文章写）；Client AV SDK 或 SFU 产品实现；Cursor agent 沙箱排障细节以外的 IDE 配置。
 
-上一篇讲了 [在项目里用 Matt Pocock Skills 记录与推进](/riven-blog/posts/matt-pocock-skills-av-learning)。本篇落到第一张票：先把「能重复跑实验、能按短文验收」的地基钉死。
+上一篇讲了 [在项目里用 Matt Pocock Skills 记录与推进](/posts/matt-pocock-skills-av-learning)。本篇落到第一张票：先把「能重复跑实验、能按短文验收」的地基钉死。
 
 ## 这张票要解决什么
 
