@@ -10,9 +10,11 @@ tags:
 
 本文是「音视频学习工程」系列的开篇。目标只有一个：在真实学习仓里，用 [mattpocock/skills](https://github.com/mattpocock/skills) **把判断写进文件，再按文件施工**。
 
+配套代码仓：[fireloli27/cpp-av-lab](https://github.com/fireloli27/cpp-av-lab)（默认分支 `master`）。下文路径均可在该仓对照；正式 Client AV SDK / Media Server 产品实现不在此仓范围。
+
 **本文覆盖：** 仓内记什么、记在哪；从 `setup` 到每张票的 `grill → implement → retro` 怎么跑。
 
-**本文不覆盖：** 各 skill 的内部实现；采集 / 编码等具体音视频 API（后续文章按票写）；Cursor 安装排障。
+**本文不覆盖：** 各 skill 的内部实现；采集 / 编码等具体音视频 API（[系列 02](/posts/av-series-02-learning-harness) 起按票写）；Cursor 安装排障。
 
 目标管线（系列后续会拆开写）：采集 → 编码 → 本地传输 → 解码 → 渲染。学习仓先把管线跑通；正式产品仓可以后开。
 
@@ -37,20 +39,20 @@ setup
 
 ## 先约定记什么、记在哪
 
-动手写代码之前，先把路径钉死。本系列使用的分层：
+动手写代码之前，先把路径钉死。本系列在 `cpp-av-lab` 里的分层：
 
-| 资产 | 路径 | 用途 |
+| 资产 | 路径（对照仓） | 用途 |
 | --- | --- | --- |
-| 术语表 | `GLOSSARY.md` | 全仓共同语言；产品词只保留一份 |
-| 架构决策 | `docs/adr/` | 难回头的选择与理由 |
-| Agent 配置 | `docs/agents/`、`AGENTS.md` | issue 位置、标签、文档布局、语言约定 |
-| 规格 | `.scratch/<feature>/spec.md` | 学习工程毕业标准 |
-| 产品假设 | `.scratch/<feature>/product-hypotheses.md` | 愿景当假设；验证钩子；未决不代定 |
-| 工单 | `.scratch/<feature>/issues/` | 可交付单元与 blocking edges |
-| 阶段短文 | `docs/learning/.../{stage}.md` | 怎么跑、怎么验收（阶段契约） |
-| 课记 | `docs/learning/.../{stage}.notes.md` | 概念与代码地图 |
-| 实验代码 | `experiments/...` | 只为短文验收服务 |
-| 教学教室 | `teach/` | `/teach` 个人进修；与工程文档分开 |
+| 术语表 | [`GLOSSARY.md`](https://github.com/fireloli27/cpp-av-lab/blob/master/GLOSSARY.md) | 全仓共同语言；产品词只保留一份 |
+| 架构决策 | [`docs/adr/`](https://github.com/fireloli27/cpp-av-lab/tree/master/docs/adr) | 难回头的选择与理由 |
+| Agent 配置 | [`AGENTS.md`](https://github.com/fireloli27/cpp-av-lab/blob/master/AGENTS.md) | issue 位置、标签、文档布局、语言约定 |
+| 规格 | [`.scratch/learning-project/spec.md`](https://github.com/fireloli27/cpp-av-lab/blob/master/.scratch/learning-project/spec.md) | 学习工程毕业标准 |
+| 产品假设 | [`.scratch/learning-project/product-hypotheses.md`](https://github.com/fireloli27/cpp-av-lab/blob/master/.scratch/learning-project/product-hypotheses.md) | 愿景当假设；验证钩子；未决不代定 |
+| 工单 | [`.scratch/learning-project/issues/`](https://github.com/fireloli27/cpp-av-lab/tree/master/.scratch/learning-project/issues) | 可交付单元与 blocking edges |
+| 阶段短文 | [`docs/learning/`](https://github.com/fireloli27/cpp-av-lab/tree/master/docs/learning) | 怎么跑、怎么验收（阶段契约） |
+| 课记 | 同目录 `{stage}.notes.md` | 概念与代码地图 |
+| 实验代码 | [`experiments/`](https://github.com/fireloli27/cpp-av-lab/tree/master/experiments) | 只为短文验收服务 |
+| 教学教室 | [`teach/`](https://github.com/fireloli27/cpp-av-lab/tree/master/teach) | `/teach` 个人进修；与工程文档分开 |
 
 记录时遵守三条：
 
@@ -58,9 +60,11 @@ setup
 2. 未决事项写明「本轮不代为决定」。
 3. 阶段契约的唯一来源是短文 / 课记；`teach/` 可以链接过去，不能反过来当契约。
 
-每个仓做一次安装与约定：
+每个仓做一次安装与约定（在仓库根执行）：
 
 ```bash
+git clone https://github.com/fireloli27/cpp-av-lab.git
+cd cpp-av-lab
 npx skills@latest add mattpocock/skills -a cursor
 ```
 
@@ -83,7 +87,7 @@ npx skills@latest add mattpocock/skills -a cursor
 3. Acceptance
 4. Status
 
-本系列票序：`01` harness → 音频五段 → 视频五段 → 管线叙述 → WebRTC 对照。
+本系列票序（见 [issues/](https://github.com/fireloli27/cpp-av-lab/tree/master/.scratch/learning-project/issues)）：`01` harness → 音频五段 → 视频五段 → 管线叙述 → WebRTC 对照。
 
 拆票规则：
 
@@ -161,7 +165,7 @@ Skill 不替你做工程判断。它要求你把判断写成仓内文件，再�
 
 ## 下一篇
 
-下一篇从 `01` harness 票写起：如何把「能重复跑实验」grill 清楚，并落到短文验收。
+下一篇：[Learning harness——怎么搭地基、怎么验收](/posts/av-series-02-learning-harness)。对照票 [`01-learning-harness.md`](https://github.com/fireloli27/cpp-av-lab/blob/master/.scratch/learning-project/issues/01-learning-harness.md)，把「能重复跑实验」落到短文与 Catch2 护栏。
 
 ## 附录：Cursor
 
