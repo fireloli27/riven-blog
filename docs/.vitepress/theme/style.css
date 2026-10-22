@@ -1,0 +1,6 @@
+:root {
+  --vp-font-family-base:
+    'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC',
+    'Microsoft YaHei', 'Source Han Sans SC', ui-sans-serif, system-ui,
+    sans-serif;
+}
