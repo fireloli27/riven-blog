@@ -111,4 +111,4 @@ cmake --build experiments/build --target learning_audio_encode
 3. **契约钉死**：输入与采集课一致（48 kHz / mono / s16le）；输出 64 kbps Opus @ `out/audio/encode/encode.caf`。
 4. **主缝没变**：独立入口 + 人工听；Catch2 只护无硬件可复现部分。
 
-下一篇默认接 **04 音频·本地传输/打包**（票面以仓内 `04-audio-local-transport` 为准）：吃本课的 `encode.caf`（或等价码流单元）。「打包」是否必须 RTP 在 spec 里仍未决。
+下一篇：[音频本地传输](/posts/av-series-05-audio-local-transport)（票面以仓内 `04-audio-local-transport` 为准）：吃本课的 `encode.caf`（或等价码流单元）。「打包」是否必须 RTP 在 spec 里仍未决。
