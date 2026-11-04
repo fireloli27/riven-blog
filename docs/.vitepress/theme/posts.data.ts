@@ -1,4 +1,5 @@
 import { createContentLoader } from 'vitepress'
+import { compareReadingOrder } from '../postOrder'
 
 export interface Post {
   title: string
@@ -22,10 +23,11 @@ export default createContentLoader('posts/*.md', {
         date: formatDate(page.frontmatter.date),
         tags: asTags(page.frontmatter.tags)
       }))
-      .sort(
-        (a, b) =>
-          compareDateDesc(a.date, b.date) ||
-          a.title.localeCompare(b.title, 'zh-CN')
+      .sort((a, b) =>
+        compareReadingOrder(
+          { title: a.title, date: a.date, slug: a.url },
+          { title: b.title, date: b.date, slug: b.url }
+        )
       )
   }
 })
@@ -56,9 +58,3 @@ function formatDate(value: unknown): string {
   return ''
 }
 
-function compareDateDesc(a: string, b: string): number {
-  if (a === b) return 0
-  if (!a) return 1
-  if (!b) return -1
-  return a < b ? 1 : -1
-}

@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { defineConfig, type DefaultTheme } from 'vitepress'
+import { compareReadingOrder } from './postOrder'
 
 const postsDir = path.resolve(process.cwd(), 'docs/posts')
 
@@ -118,10 +119,11 @@ function readPosts(): PostMeta[] {
     .readdirSync(postsDir)
     .filter((name) => name.endsWith('.md') && name !== 'index.md')
     .map((name) => readPostMeta(path.join(postsDir, name)))
-    .sort(
-      (a, b) =>
-        compareDateDesc(a.date, b.date) ||
-        a.title.localeCompare(b.title, 'zh-CN')
+    .sort((a, b) =>
+      compareReadingOrder(
+        { title: a.title, date: a.date, slug: a.link },
+        { title: b.title, date: b.date, slug: b.link }
+      )
     )
 }
 
@@ -160,13 +162,6 @@ function sourceWithTitle(src: string): string {
     .replace(/\s+/g, ' ')
   if (!title) return src
   return `${match[0]}\n# ${title}\n${src.slice(match[0].lengtj)}`
-}
-
-function compareDateDesc(a: string, b: string): number {
-  if (a === b) return 0
-  if (!a) return 1
-  if (!b) return -1
-  return a < b ? 1 : -1
 }
 
 // 按中文上切分，恿免整句被当成一个搜索词。
