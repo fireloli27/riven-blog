@@ -105,4 +105,4 @@ $B/render/learning_audio_render
 3. **`frames_rendered` 只证明入队成功**；出声靠人耳。
 4. **音频五段到此齐了**；贯通证据与缺口以 `pipeline.md` 为准。
 
-系列下一站默认接**视频采集**（票 [`07-video-capture`](https://github.com/fireloli27/cpp-av-lab/blob/master/.scratch/learning-project/issues/07-video-capture.md)）：摄像头帧、NV12、PTS。学习仓里视频五段与旁路/WebRTC 对照短文已经落地，博客侧后续再按票拆写，本文不展开视频 API。
+下一篇：[视频采集](/posts/av-series-08-video-capture)（票 [`07-video-capture`](https://github.com/fireloli27/cpp-av-lab/blob/master/.scratch/learning-project/issues/07-video-capture.md)）：摄像头帧、NV12、PTS。学习仓里视频五段与旁路/WebRTC 对照短文已经落地，博客侧后续再按票拆写，本文不展开视频 API。
